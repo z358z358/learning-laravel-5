@@ -5,6 +5,7 @@ use App\Http\Requests;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\HttpResponse;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class ArticlesController extends Controller
 {
@@ -53,19 +54,23 @@ class ArticlesController extends Controller
 	 */
 	public function store(ArticleRequest $request)
 	{
-		Article::create($request->all());
+		$article = new Article($request->all());
+
+		Auth::user()->articles()->save($article);
 
 		return redirect('articles');
-
 	}
 
 	/**
+	 * Edit an existing article
 	 *
-	 * 
+	 * @param  integer $id
+	 * @return Response
 	 */
 	public function edit($id)
 	{
 		$article = Article::findOrFail($id);
+
 		return view('articles.edit', compact('article'));
 	}
 
