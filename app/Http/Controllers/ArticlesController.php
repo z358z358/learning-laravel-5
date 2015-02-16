@@ -10,6 +10,11 @@ use Auth;
 class ArticlesController extends Controller
 {
 
+	public function __construct()
+	{
+		$this->middleware('auth', ['except' => 'index']);
+	}
+
 	/**
 	 * Show all articles
 	 *
