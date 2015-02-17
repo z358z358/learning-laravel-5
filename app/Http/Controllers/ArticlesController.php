@@ -6,6 +6,7 @@ use App\Http\Requests\ArticleRequest;
 use Illuminate\HttpResponse;
 use App\Http\Controllers\Controller;
 use Auth;
+use App\Tag;
 
 class ArticlesController extends Controller
 {
@@ -46,7 +47,9 @@ class ArticlesController extends Controller
 	 */
 	public function create()
 	{
-		return view('articles.create');
+		$tags = Tag::lists('name' , 'id');
+
+		return view('articles.create', compact('tags'));
 	}
 
 	/**
@@ -57,7 +60,9 @@ class ArticlesController extends Controller
 	 */
 	public function store(ArticleRequest $request)
 	{
-		Auth::user()->articles()->create($request->all());
+		$article = Auth::user()->articles()->create($request->all());
+
+		$article->tags()->attach($request->get('tag_list'));
 
 		//flash()->success('Your article has been created!');
 		flash()->overlay('Your article has been successfully created!', 'Good Job');
@@ -73,7 +78,9 @@ class ArticlesController extends Controller
 	 */
 	public function edit(Article $article)
 	{
-		return view('articles.edit', compact('article'));
+		$tags = Tag::lists('name' , 'id');
+
+		return view('articles.edit', compact('article' , 'tags'));
 	}
 
 	/**
