@@ -30,14 +30,12 @@ class ArticlesController extends Controller
 	/**
 	 * Show a single article
 	 *
-	 * @param integer $id
+	 * @param Article $article
 	 * @return  Response
 	 */
 
-	public function show($id)
+	public function show(Article $article)
 	{
-		$article = Article::findOrFail($id);
-
 		return view('articles.show', compact('article'));
 	}
 
@@ -72,21 +70,20 @@ class ArticlesController extends Controller
 	 * @param  integer $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Article $article)
 	{
-		$article = Article::findOrFail($id);
-
 		return view('articles.edit', compact('article'));
 	}
 
 	/**
+	 * update an existing article
 	 *
-	 * 
+	 * @param  integer $id
+	 * @param  ArticleRequest $request
+	 * @return Response
 	 */
-	public function update($id, ArticleRequest $request)
+	public function update(Article $article, ArticleRequest $request)
 	{
-		$article = Article::findOrFail($id);
-
 		$article->update($request->all());
 
 		return redirect('articles');
