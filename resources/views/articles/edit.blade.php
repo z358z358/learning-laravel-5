@@ -7,5 +7,5 @@
 		@include('articles.form', ['submitButtonText' => 'Update Article'])
 	{!! Form::close() !!}
 
-	@include('errors.list');
+	@include('errors.list')
 @stop
