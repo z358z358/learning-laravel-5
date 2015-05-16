@@ -32,7 +32,8 @@ class ViewComposerServiceProvider extends ServiceProvider {
 	{
 		view()->composer('partials.nav', function($view)
 		{
-			$view->with('latest', Article::latest()->first());
+            $article = Article::latest();
+			$view->with('latest', $article->exists() ? $article->first() : new Article());
 		});
 	}
 
