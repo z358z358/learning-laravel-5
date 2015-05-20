@@ -11,7 +11,7 @@
 		<h5>Tag:</h5>
 		<ul>
 			@foreach ($article->tags as $tag)
-				<li>{{ $tag->name }}</li>
+				<li>{!! link_to_action('TagsController@show', $tag->name, ['name' => $tag->name]) !!}</li>
 			@endforeach
 		</ul>
 	@endif
