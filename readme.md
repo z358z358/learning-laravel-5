@@ -2,6 +2,7 @@
 
 - Run command
 ```
+composer install
 npm install
 ```
 - then run
